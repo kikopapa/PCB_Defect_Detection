@@ -8,9 +8,7 @@
 
 ----
 
-# 論文標題：A Dataset for Deep Learning-Based Detection of Printed Circuit Board Surface Defect
-
-## 1. 研究背景與摘要
+## 1. 背景與摘要
 
 印刷電路板（PCB）在製造過程中經常會出現多種表面缺陷，這些缺陷不僅影響外觀，還可能對電路板的性能造成損害。
 因此，檢測PCB表面缺陷對於品質管控至關重要。隨著深度學習技術的快速發展，基於深度學習的檢測方法展現出極大的潛力，但要實現高效準確的檢測，必須有一個包含多樣化缺陷的大規模數據集。
@@ -51,3 +49,5 @@
 
 該數據集克服了以往數據集的一些不足，例如缺陷樣本不足、標籤不均衡等問題，為基於深度學習的PCB缺陷檢測研究提供了有力支持。
 然而，該數據集的局限性在於，它僅包含2D圖像，無法檢測如凸起或凹陷等三維缺陷。此外，未包含焊接遮蔽後的圖像。
+
+# Ref : A Dataset for Deep Learning-Based Detection of Printed Circuit Board Surface Defect

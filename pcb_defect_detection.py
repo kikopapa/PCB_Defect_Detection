@@ -1,5 +1,6 @@
 # 1. 安裝 TensorFlow 相關
 # pip install tensorflow opencv-python matplotlib
+
 # 標籤解析與轉換：YOLO 格式標籤需要轉換為模型所需的格式，並在訓練過程中動態加載。
 # 數據增強：可以對訓練集進行數據增強，如旋轉、翻轉、縮放等，以提升模型的泛化能力。
 # 模型微調：根據具體應用需求，可以選擇預訓練的 YOLO 模型，並在 DsPCBSD+ 數據集上進行微調。
@@ -12,8 +13,8 @@ import tensorflow as tf
 import numpy as np
 from tensorflow.keras.preprocessing import image_dataset_from_directory
 
-# 設定數據集的路徑
-dataset_dir = 'path_to_your_dataset/Data_YOLO/images'
+# 設定數據集的路徑 dataset_dir = 'path_to_your_dataset/Data_YOLO/images'
+dataset_dir = r'D:\KIKOPAPA\DsPCBSD+\Data_YOLO\images'
 
 # 1. 加載訓練集和驗證集
 train_ds = image_dataset_from_directory(
@@ -31,6 +32,12 @@ val_ds = image_dataset_from_directory(
     batch_size=32,
     shuffle=False
 )
+
+
+# # 如果需要，可以檢查數據集的形狀  => (32, 224, 224, 3)
+# for image_batch in train_ds.take(1):
+#     print("Image batch shape:", image_batch.shape)
+
 
 # 2. YOLO 標籤處理 (包括邊界框的坐標以及對應的類別)
 
@@ -60,71 +67,73 @@ def load_image_and_label(image_path, label_path):
     # 加載圖像
     img = tf.io.read_file(image_path)
     img = tf.image.decode_jpeg(img, channels=3)
-    img = tf.image.resize(img, [226, 226])  # 使用原始的 226x226 尺寸
+    img = tf.image.resize(img, [224, 224])  # 使用原始的 226x226 尺寸
 
     # 加載標籤
-    img_width, img_height = 226, 226
+    img_width, img_height = 224, 224
     boxes = parse_yolo_label(label_path, img_width, img_height)
 
     return img, boxes
 
 
 
-# # 3. 建立 YOLO 模型架構
+# 3. 建立 YOLO 模型架構
 
-# # 安裝 tensorflow-yolov4-tflite 包
-# # pip install tensorflow-yolov4-tflite
+# 安裝 tensorflow-yolov4-tflite 包
+# pip install tensorflow-yolov4-tflite
 
 # from yolov4.tf import YOLOv4
+from ultralytics import YOLO
 
-# # 設置 YOLOv4 模型
+# 設置 YOLOv4 模型
 # yolo = YOLOv4()
+yolo = YOLO('yolov8n.yaml')
 
-# # 加載預訓練模型權重
-# yolo.classes = "path_to_yolo_classes.txt"
-# yolo.make_model()
-# yolo.load_weights("path_to_pretrained_yolo_weights.weights", weights_type="yolo")
+# 加載預訓練模型權重
+yolo.classes = "path_to_yolo_classes.txt"
+yolo.make_model()
+yolo.load_weights("path_to_pretrained_yolo_weights.weights", weights_type="yolo")
 
-# # 編譯模型
-# yolo.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+# 編譯模型
+yolo.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
-# # 訓練模型
-# history = yolo.fit(train_ds, epochs=20, validation_data=val_ds)
+# 訓練模型
+history = yolo.fit(train_ds, epochs=20, validation_data=val_ds)
 
-# # 保存訓練好的模型
-# yolo.save_weights("yolov4_pcb_weights.h5")
+# 保存訓練好的模型
+yolo.save_weights("yolov4_pcb_weights.h5")
 
-# # 4. 訓練與驗證
+# 4. 訓練與驗證
 
-# # 訓練模型
-# history = yolo.fit(
-#     train_ds,
-#     epochs=50,               # 訓練 50 個 epoch
-#     validation_data=val_ds,   # 驗證集
-#     batch_size=32             # 每批次32張圖像
-# )
+# 訓練模型
+history = yolo.fit(
+    train_ds,
+    epochs=50,               # 訓練 50 個 epoch
+    validation_data=val_ds,   # 驗證集
+    batch_size=32             # 每批次32張圖像
+)
 
-# # 查看模型性能
-# yolo.evaluate(val_ds)
+# 查看模型性能
+yolo.evaluate(val_ds)
 
 
-# # 5. 模型預測與評估
+# 5. 模型預測與評估
 
-# import cv2
-# import matplotlib.pyplot as plt
+import cv2
+import matplotlib.pyplot as plt
 
-# # 加載測試圖像
-# img_path = 'path_to_your_dataset/test/image.jpg'
-# image = cv2.imread(img_path)
-# image = cv2.resize(image, (224, 224))
+# 加載測試圖像
+img_path = 'path_to_your_dataset/test/image.jpg'
+image = cv2.imread(img_path)
+image = cv2.resize(image, (224, 224))
 
-# # 預測缺陷
-# boxes, scores, classes, nums = yolo.predict(image)
+# 預測缺陷
+boxes, scores, classes, nums = yolo.predict(image)
 
-# # 可視化結果
-# plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
-# for i in range(nums[0]):
-#     box = boxes[0][i]
-#     plt.gca().add_patch(plt.Rectangle((box[0], box[1]), box[2] - box[0], box[3] - box[1],
-#                                       fill=False, color='red', linewidth=2))
-# plt.show()
+# 可視化結果
+plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+for i in range(nums[0]):
+    box = boxes[0][i]
+    plt.gca().add_patch(plt.Rectangle((box[0], box[1]), box[2] - box[0], box[3] - box[1],
+                                      fill=False, color='red', linewidth=2))
+plt.show()

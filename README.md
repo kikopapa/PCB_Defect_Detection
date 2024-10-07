@@ -24,7 +24,7 @@
 
 - 缺陷圖像收集：來自實際生產的內層和外層 PCB 的缺陷圖像，通過自動光學檢測（AOI）設備收集，圖像經過預處理，去除了噪音，並增強了對比度和亮度，最終生成 32,259 張圖片，圖像大小為 226 x 226 像素。
 
-- 缺陷分類與數據預處理：基於缺陷的成因（如銅殘留、銅缺陷、導體刮痕和異物）進行分類，並進一步細分為 9 個類別：
+- 缺陷分類與數據預處理：基於缺陷的成因（如 銅殘留 Copper residue、銅不足 Copper deficiency、導體刮痕 Conductor scratch 和 異物 Foreign object）進行分類，並進一步細分為 9 個類別：
 
   - 短路 (Short) - SH
   - 尖刺 (Spur) - SP
@@ -36,7 +36,7 @@
   - 導體異物 (Conductor foreign object) - CFO
   - 基材異物 (Base material foreign object) - BMFO
 
-![image](doc/PCB_surface_defect_classification.png)
+  ![image](doc/PCB_surface_defect_classification.png)
 
 - 缺陷標記與數據集劃分：利用 LabelImg 工具對每個缺陷進行手動邊界框註解，過濾掉無缺陷的圖像、重複缺陷圖像和不完整的缺陷圖像。最終生成包含 20,276 個缺陷標記的 10,259 張圖像。數據集被劃分為訓練集和驗證集，比例為 8:2。
 

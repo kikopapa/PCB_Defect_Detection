@@ -51,6 +51,10 @@
 數據集提供了 YOLO 和 COCO 格式，存儲了訓練和驗證數據的圖像和標籤文件。
 標籤文件包含了缺陷的類別、邊界框的坐標及其尺寸，這些數據可直接用於訓練深度學習模型。
 
+  ![image](doc/Count_of_three_size_labels.png)
+  ![image](doc/distribution_of_defect_labels_in_dataset_across_different_categories.png)
+
+
 ## 5. 數據集的優勢與局限性
 
 - 該數據集克服了以往數據集的一些不足，例如缺陷樣本不足、標籤不均衡等問題，為基於深度學習的 PCB 缺陷檢測研究提供了有力支持。

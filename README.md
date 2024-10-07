@@ -36,7 +36,7 @@
   - 導體異物 (Conductor foreign object) - CFO
   - 基材異物 (Base material foreign object) - BMFO
 
-![image](../doc/PCB_surface_defect_classification.png)
+![image](doc/PCB_surface_defect_classification.png)
 
 - 缺陷標記與數據集劃分：利用 LabelImg 工具對每個缺陷進行手動邊界框註解，過濾掉無缺陷的圖像、重複缺陷圖像和不完整的缺陷圖像。最終生成包含 20,276 個缺陷標記的 10,259 張圖像。數據集被劃分為訓練集和驗證集，比例為 8:2。
 

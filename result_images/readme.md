@@ -2,8 +2,6 @@
 - 內容：包含訓練過程中的多種評估指標，如 Precision、Recall、mAP (mean Average Precision) 在不同 epoch 的變化。
 - 用途：幫助觀察訓練和驗證的性能隨著 epoch 的變化，了解模型的收斂情況
   
-## confusion_matrix.png
-
 ## val_batchX_labels.jpg 跟 val_batchX_pred.jpg
 - 內容：這些圖像展示了驗證數據集上的模型預測結果 (val_batchX_pred.jpg) 和真實標籤 (val_batchX_labels.jpg)，X 表示批次號。
 - 用途：用來可視化驗證數據的預測效果，了解模型是否準確地識別了目標物件。

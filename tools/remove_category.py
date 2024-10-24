@@ -2,8 +2,8 @@ import os
 
 # 設定資料集的路徑
 dataset_path = r"D:\KIKOPAPA\my_DsPCBSD+\Data_YOLO"  # 替換為你的資料集路徑
-images_path = os.path.join(dataset_path, "images","train")  # 圖像目錄
-labels_path = os.path.join(dataset_path, "labels","train")  # 標註目錄
+images_path = os.path.join(dataset_path, "images","train")  # 圖像目錄  # train 跟 val
+labels_path = os.path.join(dataset_path, "labels","train")  # 標註目錄  # train 跟 val
 
 # 設定要移除的類別
 remove_classes = {6, 7}  # 要移除的類別索引
@@ -32,5 +32,12 @@ for filename in os.listdir(labels_path):
             # 如果所有類別都被移除，可以選擇刪除該檔案
             os.remove(annotation_file_path)
             print(f"Removed empty annotation file: {annotation_file_path}")
+
+            # 刪除對應的圖片檔案
+            image_file_name = os.path.splitext(filename)[0] + '.jpg'  # 假設圖檔為 JPG 格式
+            image_file_path = os.path.join(images_path, image_file_name)
+            if os.path.exists(image_file_path):
+                os.remove(image_file_path)
+                print(f"Removed corresponding image file: {image_file_path}")
 
 print("Finished processing annotations in labels/train.")

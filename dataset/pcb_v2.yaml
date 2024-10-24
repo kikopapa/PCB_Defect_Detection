@@ -1,0 +1,24 @@
+# dataset.yaml
+
+# train and val data
+path: /content/Data_YOLO  # 資料集的路徑
+train: /content/Data_YOLO/images/train # 訓練集圖片的路徑
+val: /content/Data_YOLO/images/val # 驗證集圖片的路徑
+# train: D:\KIKOPAPA\DsPCBSD+\Data_YOLO\images\train
+# val: D:\KIKOPAPA\DsPCBSD+\Data_YOLO\images\val
+
+# Classes # 類別數量（如 PCB 缺陷類別數）
+nc: 7
+names:
+  0: SH
+  1: SP
+  2: SC
+  3: OP
+  4: MB
+  5: HB
+  6: BMFO
+
+
+
+
+# names: ['Short', 'Spur', 'Spurious copper', 'Open', 'Mouse bite', 'Hole breakout', 'Conductor scratch', 'Conductor foreign object', 'Base material foreign object']

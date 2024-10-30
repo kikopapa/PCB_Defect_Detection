@@ -55,9 +55,8 @@
   ![image](doc/distribution_of_defect_labels_in_dataset_across_different_categories.png)
 
 - 以下使用 Python 搭配 Seaborn 套件進行資料視覺化繪圖
-  > tools > visualization.py
   ![image](tools/Figure_v5.png)
-
+> tools > visualization.py
 
 
 ## 5. 數據集的優勢與局限性

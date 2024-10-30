@@ -53,6 +53,8 @@
 
   ![image](doc/Count_of_three_size_labels.png)
   ![image](doc/distribution_of_defect_labels_in_dataset_across_different_categories.png)
+  ![image](tools/Figure_v5.png)
+
 
 
 ## 5. 數據集的優勢與局限性
